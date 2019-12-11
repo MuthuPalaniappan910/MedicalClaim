@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.claim.medicalclaim.entity.Claim;
 
+
 @Repository
 public interface ClaimRepository extends JpaRepository<Claim, Long> {
 
-	Optional<Claim> findByClaimId(Claim claimId);
+	Optional<Claim> findByClaimId(Long claimId);
 
 }

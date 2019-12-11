@@ -11,4 +11,5 @@ public class ClaimListDto {
 	private Long claimId;
 	private LocalDate claimraisedDate;
 	private Double claimAmount;
+	private String ailment;
 }

@@ -13,6 +13,7 @@ import com.claim.medicalclaim.dto.ClaimListDto;
 import com.claim.medicalclaim.entity.Approver;
 import com.claim.medicalclaim.entity.Claim;
 import com.claim.medicalclaim.entity.ClaimStatus;
+import com.claim.medicalclaim.exception.GeneralException;
 import com.claim.medicalclaim.repository.ApproverRepository;
 import com.claim.medicalclaim.repository.ClaimStatusRepository;
 import com.claim.medicalclaim.repository.ClaimRepository;
@@ -34,15 +35,15 @@ public class ApproverServiceImpl implements ApproverService {
 	}
 
 	@Override
-	public List<ClaimStatus> viewClaims(Long approverId) throws Exception {
+	public List<ClaimStatus> viewClaims(Long approverId) throws GeneralException {
 		Optional<Approver> approverResponse = approverRepository.findByApproverId(approverId);
 		if (!approverResponse.isPresent()) {
-			throw new Exception("");
+			throw new GeneralException("Invalid Approver");
 		}
 		Optional<List<ClaimStatus>> claimStatusResponse = claimStatusRepository
 				.findByClaimStatusAndApproverId(ApplicationConstants.PENDING, approverResponse.get());
 		if (!claimStatusResponse.isPresent()) {
-			throw new Exception("");
+			throw new GeneralException("Invalid Claim Query");
 		}
 		return claimStatusResponse.get();
 	}
@@ -53,11 +54,12 @@ public class ApproverServiceImpl implements ApproverService {
 
 		claimStatusDetailsList.forEach(claimStatus -> {
 			ClaimListDto claimListDto = new ClaimListDto();
-			Optional<Claim> claimResponse = claimRepository.findByClaimId(claimStatus.getClaimId());
+			Optional<Claim> claimResponse = claimRepository.findByClaimId(claimStatus.getClaimId().getClaimId());
 			if (claimResponse.isPresent()) {
 				claimListDto.setClaimAmount(claimResponse.get().getClaimAmount());
 				claimListDto.setClaimId(claimResponse.get().getClaimId());
 				claimListDto.setClaimraisedDate(claimResponse.get().getClaimRaisedDate());
+				claimListDto.setAilment(claimResponse.get().getAilment());
 				claimList.add(claimListDto);
 			}
 		});

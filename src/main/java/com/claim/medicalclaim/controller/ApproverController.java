@@ -19,6 +19,7 @@ import com.claim.medicalclaim.dto.ApproverRequestDto;
 import com.claim.medicalclaim.dto.ApproverResponseDto;
 import com.claim.medicalclaim.entity.Approver;
 import com.claim.medicalclaim.entity.ClaimStatus;
+import com.claim.medicalclaim.exception.GeneralException;
 import com.claim.medicalclaim.service.ApproverService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,7 @@ public class ApproverController {
 	}
 
 	@GetMapping("/{approverId}")
-	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId) throws Exception {
+	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId) throws GeneralException {
 		ApproverClaimListResponseDto approverClaimListResponseDto = new ApproverClaimListResponseDto();
 		List<ClaimStatus> claimStatusDetails = approverService.viewClaims(approverId);
 		if (claimStatusDetails.isEmpty()) {
