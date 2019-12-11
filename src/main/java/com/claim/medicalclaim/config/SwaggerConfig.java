@@ -1,4 +1,4 @@
-package com.claim.medicalcliam.config;
+package com.claim.medicalclaim.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -37,9 +37,8 @@ public class Claim {
 	private LocalDate dischargeDate;
 	private Double claimAmount;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "hospitalId", nullable = false)
-	private Hospital hospitalId;
+
+	private String hospitalName;
 
 	private String dischargeSummary;
 	private String ailment;

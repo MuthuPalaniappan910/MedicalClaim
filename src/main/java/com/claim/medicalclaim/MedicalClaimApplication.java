@@ -1,4 +1,4 @@
-package com.claim.medicalcliam;
+package com.claim.medicalclaim;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
