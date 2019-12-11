@@ -18,6 +18,5 @@ public class RaiseClaimRequestDto {
 	private String hospitalName;
 	private String dischargeSummary;
 	private String ailment;
-	private LocalDate claimRaisedDate;
 
 }

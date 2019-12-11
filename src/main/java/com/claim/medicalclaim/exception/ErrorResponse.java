@@ -1,18 +1,23 @@
 package com.claim.medicalclaim.exception;
 
-import java.time.LocalDate;
-
 public class ErrorResponse {
-	String exceptionMessage;
-	LocalDate date;
+	String message;
+
 	public ErrorResponse() {
-		
+
 	}
-	public ErrorResponse(String exceptionMessage,LocalDate date) {
+
+	public ErrorResponse(String message) {
 		super();
-		this.exceptionMessage=exceptionMessage;
-		this.date=date;
-		
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
