@@ -88,6 +88,7 @@ public class ClaimServiceImpl implements ClaimService {
 		claimStatusRepository.save(claimStatus);
 
 		RaiseClaimResponseDto raiseClaimResponseDto = new RaiseClaimResponseDto();
+		raiseClaimResponseDto.setClaimId(claim.getClaimId());
 		return Optional.of(raiseClaimResponseDto);
 
 	}

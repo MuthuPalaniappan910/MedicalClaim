@@ -1,5 +1,6 @@
 package com.claim.medicalclaim.service;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
@@ -54,6 +55,7 @@ public class ClaimServiceTest {
 	RaiseClaimRequestDto raiseClaimRequestDto = null;
 	RaiseClaimRequestDto NewraiseClaimRequestDto = null;
 	Policy policy = null;
+	Approver approver = null;
 
 	@Before
 	public void before() {
@@ -89,6 +91,10 @@ public class ClaimServiceTest {
 		policy.setPolicyId(1);
 		policy.setPolicyStartDate(LocalDate.of(2018, 12, 01));
 		policy.setPolicyEndDate(LocalDate.of(2020, 12, 01));
+
+		approver = new Approver();
+		approver.setApproverId(1L);
+		approver.setApproverEmail("c@gmail.com");
 	}
 
 	@Test
@@ -114,12 +120,6 @@ public class ClaimServiceTest {
 		claimServiceImpl.searchClaim(1L);
 	}
 
-	@Test
-	public void testRaiseClaimForPositive() {
-		Mockito.when(policyRepository.findById(raiseClaimRequestDto.getPolicyId())).thenReturn(Optional.of(policy));
-
-	}
-
 	@Test(expected = GeneralException.class)
 	public void testRaiseClaimForNegativeDate() throws GeneralException {
 		RaiseClaimRequestDto raiseClaimRequestDto1 = new RaiseClaimRequestDto();
@@ -143,5 +143,7 @@ public class ClaimServiceTest {
 		Mockito.when(approverRepository.findByAilment(raiseClaimRequestDto.getAilment())).thenReturn(approverResponse);
 		claimServiceImpl.raiseClaim(raiseClaimRequestDto);
 	}
+
+	
 
 }

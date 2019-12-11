@@ -43,6 +43,8 @@ public class ApproverController {
 		if (approver.isPresent()) {
 			approverResponseDto.setStatusCode(ApplicationConstants.SUCCESS_CODE);
 			approverResponseDto.setMessage(ApplicationConstants.SUCCESS_MESSAGE);
+			approverResponseDto.setApproverId(approver.get().getApproverId());
+			approverResponseDto.setApproverRole(approver.get().getApproverRole());
 			return new ResponseEntity<>(approverResponseDto, HttpStatus.OK);
 		}
 		approverResponseDto.setStatusCode(ApplicationConstants.ERROR_CODE);
@@ -51,7 +53,8 @@ public class ApproverController {
 	}
 
 	@GetMapping("/{approverId}")
-	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId) throws GeneralException {
+	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId)
+			throws GeneralException {
 		ApproverClaimListResponseDto approverClaimListResponseDto = new ApproverClaimListResponseDto();
 		List<ClaimStatus> claimStatusDetails = approverService.viewClaims(approverId);
 		if (claimStatusDetails.isEmpty()) {
@@ -61,7 +64,7 @@ public class ApproverController {
 			return new ResponseEntity<>(approverClaimListResponseDto, HttpStatus.NOT_FOUND);
 		}
 		log.info("Displaying claim details");
-		approverClaimListResponseDto=approverService.getClaimList(claimStatusDetails);
+		approverClaimListResponseDto = approverService.getClaimList(claimStatusDetails);
 		approverClaimListResponseDto.setStatusCode(ApplicationConstants.SUCCESS_CODE);
 		approverClaimListResponseDto.setStatusMessage(ApplicationConstants.DISPLAY_VIEW_LIST);
 		return new ResponseEntity<>(approverClaimListResponseDto, HttpStatus.OK);
