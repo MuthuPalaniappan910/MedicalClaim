@@ -1,11 +1,15 @@
-package com.claim.medicalcliam.entity;
+package com.claim.medicalclaim.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,13 +27,20 @@ public class Claim {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "claimsequence")
 	private Long claimId;
 	private String name;
-	private Integer policyId;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "policyId", nullable = false)
+	private Policy policyId;
+
 	private String diagnosis;
 	private LocalDate admissionDate;
 	private LocalDate dischargeDate;
 	private Double claimAmount;
-	private Integer hospitalId;
+
+
+	private String hospitalName;
+
 	private String dischargeSummary;
 	private String ailment;
-	private LocalDate claiRaisedDate;
+	private LocalDate claimRaisedDate;
 }

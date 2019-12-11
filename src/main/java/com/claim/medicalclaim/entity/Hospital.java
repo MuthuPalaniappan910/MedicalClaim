@@ -1,4 +1,4 @@
-package com.claim.medicalcliam.entity;
+package com.claim.medicalclaim.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
