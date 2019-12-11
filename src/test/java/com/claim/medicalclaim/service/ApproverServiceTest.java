@@ -37,15 +37,15 @@ public class ApproverServiceTest {
 		approver.setApproverPassword("muthu123");
 
 		approverRequestDto.setApproverEmail("muthu@gmail.com");
-		approverRequestDto.setApproverPassowrd("muthu123");
+		approverRequestDto.setApproverPassword("muthu123");
 	}
 
 	@Test
 	public void approverLoginPositive() {
 		Mockito.when(approverRepository.findByApproverEmailAndApproverPassword(approverRequestDto.getApproverEmail(),
-				approverRequestDto.getApproverPassowrd())).thenReturn(Optional.of(new Approver()));
+				approverRequestDto.getApproverPassword())).thenReturn(Optional.of(new Approver()));
 		Optional<Approver> expected = approverServiceImpl.approverLogin(approverRequestDto.getApproverEmail(),
-				approverRequestDto.getApproverPassowrd());
+				approverRequestDto.getApproverPassword());
 		assertEquals(true, expected.isPresent());
 	}
 }

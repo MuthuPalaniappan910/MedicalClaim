@@ -32,7 +32,7 @@ public class ClaimStatus {
 	private Approver approverId;
 
 	private Double amountSanctioned;
-	private String claimStatus;
+	private String status;
 	private String comments;
 }
 
