@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ApproverRequestDto {
 	private String approverEmail;
-	private String approverPassowrd;
+	private String approverPassword;
 }

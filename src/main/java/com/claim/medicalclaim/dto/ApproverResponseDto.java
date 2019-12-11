@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ApproverResponseDto {
 	private Integer statusCode;
-	private String statusMessage;
+	private String message;
 }

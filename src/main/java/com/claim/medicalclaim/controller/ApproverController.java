@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.claim.medicalclaim.service.ApproverService;
 
 import lombok.extern.slf4j.Slf4j;
 
+@CrossOrigin(allowedHeaders = { "*", "*/" }, origins = { "*", "*/" })
 @RequestMapping("/approvers/claims")
 @Slf4j
 @RestController
@@ -30,15 +32,15 @@ public class ApproverController {
 		log.info("Inside login method");
 		ApproverResponseDto approverResponseDto = new ApproverResponseDto();
 		String approverEmail = approverRequestDto.getApproverEmail();
-		String approverPassword = approverRequestDto.getApproverPassowrd();
+		String approverPassword = approverRequestDto.getApproverPassword();
 		Optional<Approver> approver = approverService.approverLogin(approverEmail, approverPassword);
 		if (approver.isPresent()) {
 			approverResponseDto.setStatusCode(ApplicationConstants.SUCCESS_CODE);
-			approverResponseDto.setStatusMessage(ApplicationConstants.SUCCESS_MESSAGE);
+			approverResponseDto.setMessage(ApplicationConstants.SUCCESS_MESSAGE);
 			return new ResponseEntity<>(approverResponseDto, HttpStatus.OK);
 		}
 		approverResponseDto.setStatusCode(ApplicationConstants.ERROR_CODE);
-		approverResponseDto.setStatusMessage(ApplicationConstants.ERROR_MESSAGE);
+		approverResponseDto.setMessage(ApplicationConstants.ERROR_MESSAGE);
 		return new ResponseEntity<>(approverResponseDto, HttpStatus.NOT_FOUND);
 	}
 }

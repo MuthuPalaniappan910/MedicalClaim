@@ -60,12 +60,12 @@ public class ClaimServiceImpl implements ClaimService {
 			throw new GeneralException("No Approvers Available for entered ailment");
 		}
 		claimStatus.setApproverId(approverResponse.get());
-		claimStatus.setClaimStatus(ApplicationConstants.PENDING);
+		claimStatus.setStatus(ApplicationConstants.PENDING);
 		claimStatusRepository.save(claimStatus);
 		
 		
-		RaiseClaimResponseDto RaiseClaimResponseDto= new RaiseClaimResponseDto();
-		return Optional.of(RaiseClaimResponseDto);
+		RaiseClaimResponseDto raiseClaimResponseDto= new RaiseClaimResponseDto();
+		return Optional.of(raiseClaimResponseDto);
 	}
 
 }
