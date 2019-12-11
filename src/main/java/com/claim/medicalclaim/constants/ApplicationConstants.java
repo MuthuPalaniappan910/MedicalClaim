@@ -28,5 +28,7 @@ public class ApplicationConstants {
 	public static final String EMPTY_VIEW_LIST = "There are currently no claims for you to view";
 	public static final String DISPLAY_VIEW_LIST = "Claims are being displayed";
 
-
+	public static final String APPROVER_INVALID="Invalid Approver";
+	public static final String CLAIM_INVALID="Invalid Claim Query";
+	
 }

@@ -32,9 +32,8 @@ public class ClaimServiceTest {
 	ClaimServiceImpl claimServiceImpl;
 
 	ClaimSearchResponseDto claimSearchResponseDto = null;
-	Claim claim=null;
-	Claim claim1=null;
-	ClaimStatus claimStatus=null;
+	Claim claim = null;
+	ClaimStatus claimStatus = null;
 
 	@Before
 	public void before() {
@@ -43,14 +42,12 @@ public class ClaimServiceTest {
 		claimSearchResponseDto.setClaimId(1L);
 		claimSearchResponseDto.setClaimStatus("Pending");
 		claimSearchResponseDto.setComments("Approved");
-		
-		claim=new Claim();
+
+		claim = new Claim();
 		claim.setClaimAmount(100.00);
 		claim.setClaimId(1L);
-		
-		claim1=new Claim();
-		
-		claimStatus=new ClaimStatus();
+
+		claimStatus = new ClaimStatus();
 		claimStatus.setClaimStatus("pending");
 		claimStatus.setClaimStatusID(1L);
 	}
@@ -59,17 +56,10 @@ public class ClaimServiceTest {
 	public void testsearchClaimForPositive() throws PolicyClaimNotFoundException {
 		Mockito.when(claimRepository.findByClaimId(1L)).thenReturn(Optional.of(claim));
 		Mockito.when(claimStatusRepository.findByClaimId(claim)).thenReturn(Optional.of(claimStatus));
-		ClaimSearchResponseDto response=claimServiceImpl.searchClaim(1L);
+		ClaimSearchResponseDto response = claimServiceImpl.searchClaim(1L);
 		assertEquals(claimSearchResponseDto.getClaimId(), response.getClaimId());
 	}
-	
-	@Test(expected = PolicyClaimNotFoundException.class)
-	public void testsearchClaimForNegative() throws PolicyClaimNotFoundException {
-		Optional<Claim> claim1 = Optional.ofNullable(null);
-		Mockito.when(claimRepository.findByClaimId(1L)).thenReturn(claim1);
-		claimServiceImpl.searchClaim(1L);
-	}
-	
+
 	@Test(expected = PolicyClaimNotFoundException.class)
 	public void testsearchClaimForNull() throws PolicyClaimNotFoundException {
 		Optional<ClaimStatus> claim1 = Optional.ofNullable(null);

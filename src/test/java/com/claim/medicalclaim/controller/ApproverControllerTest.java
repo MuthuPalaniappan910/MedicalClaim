@@ -21,7 +21,8 @@ import com.claim.medicalclaim.dto.ApproverResponseDto;
 import com.claim.medicalclaim.entity.Approver;
 import com.claim.medicalclaim.entity.Claim;
 import com.claim.medicalclaim.entity.ClaimStatus;
-import com.claim.medicalclaim.exception.GeneralException;
+import com.claim.medicalclaim.exception.ApproverInvalidException;
+import com.claim.medicalclaim.exception.ClaimInvalidException;
 import com.claim.medicalclaim.service.ApproverService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -93,14 +94,14 @@ public class ApproverControllerTest {
 	}
 
 	@Test
-	public void testViewClaimsEmpty() throws GeneralException {
+	public void testViewClaimsEmpty() throws ApproverInvalidException, ClaimInvalidException {
 		Mockito.when(approverService.viewClaims(2L)).thenReturn(claimList1);
 		Integer expected = approverController.viewClaims(1L).getStatusCodeValue();
 		assertEquals(ApplicationConstants.ERROR_CODE, expected);
 	}
 
 	@Test
-	public void testViewClaimsList() throws GeneralException {
+	public void testViewClaimsList() throws ApproverInvalidException, ClaimInvalidException {
 		Mockito.when(approverService.viewClaims(1L)).thenReturn(claimList);
 		Mockito.when(approverService.getClaimList(claimList)).thenReturn(approverClaimListResponseDto);
 		Integer expected = approverController.viewClaims(1L).getStatusCodeValue();

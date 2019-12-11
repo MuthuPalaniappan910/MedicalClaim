@@ -19,7 +19,8 @@ import com.claim.medicalclaim.dto.ApproverRequestDto;
 import com.claim.medicalclaim.dto.ApproverResponseDto;
 import com.claim.medicalclaim.entity.Approver;
 import com.claim.medicalclaim.entity.ClaimStatus;
-import com.claim.medicalclaim.exception.GeneralException;
+import com.claim.medicalclaim.exception.ApproverInvalidException;
+import com.claim.medicalclaim.exception.ClaimInvalidException;
 import com.claim.medicalclaim.service.ApproverService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,8 @@ public class ApproverController {
 	}
 
 	@GetMapping("/{approverId}")
-	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId) throws GeneralException {
+	public ResponseEntity<ApproverClaimListResponseDto> viewClaims(@PathVariable("approverId") Long approverId)
+			throws ApproverInvalidException, ClaimInvalidException {
 		ApproverClaimListResponseDto approverClaimListResponseDto = new ApproverClaimListResponseDto();
 		List<ClaimStatus> claimStatusDetails = approverService.viewClaims(approverId);
 		if (claimStatusDetails.isEmpty()) {
@@ -59,7 +61,7 @@ public class ApproverController {
 			return new ResponseEntity<>(approverClaimListResponseDto, HttpStatus.NOT_FOUND);
 		}
 		log.info("Displaying claim details");
-		approverClaimListResponseDto=approverService.getClaimList(claimStatusDetails);
+		approverClaimListResponseDto = approverService.getClaimList(claimStatusDetails);
 		approverClaimListResponseDto.setStatusCode(ApplicationConstants.SUCCESS_CODE);
 		approverClaimListResponseDto.setStatusMessage(ApplicationConstants.DISPLAY_VIEW_LIST);
 		return new ResponseEntity<>(approverClaimListResponseDto, HttpStatus.OK);

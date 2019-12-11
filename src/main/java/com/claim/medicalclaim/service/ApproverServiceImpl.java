@@ -13,10 +13,11 @@ import com.claim.medicalclaim.dto.ClaimListDto;
 import com.claim.medicalclaim.entity.Approver;
 import com.claim.medicalclaim.entity.Claim;
 import com.claim.medicalclaim.entity.ClaimStatus;
-import com.claim.medicalclaim.exception.GeneralException;
+import com.claim.medicalclaim.exception.ApproverInvalidException;
+import com.claim.medicalclaim.exception.ClaimInvalidException;
 import com.claim.medicalclaim.repository.ApproverRepository;
-import com.claim.medicalclaim.repository.ClaimStatusRepository;
 import com.claim.medicalclaim.repository.ClaimRepository;
+import com.claim.medicalclaim.repository.ClaimStatusRepository;
 
 @Service
 public class ApproverServiceImpl implements ApproverService {
@@ -35,15 +36,15 @@ public class ApproverServiceImpl implements ApproverService {
 	}
 
 	@Override
-	public List<ClaimStatus> viewClaims(Long approverId) throws GeneralException {
+	public List<ClaimStatus> viewClaims(Long approverId) throws ClaimInvalidException, ApproverInvalidException {
 		Optional<Approver> approverResponse = approverRepository.findByApproverId(approverId);
 		if (!approverResponse.isPresent()) {
-			throw new GeneralException("Invalid Approver");
+			throw new ApproverInvalidException(ApplicationConstants.APPROVER_INVALID);
 		}
 		Optional<List<ClaimStatus>> claimStatusResponse = claimStatusRepository
 				.findByClaimStatusAndApproverId(ApplicationConstants.PENDING, approverResponse.get());
 		if (!claimStatusResponse.isPresent()) {
-			throw new GeneralException("Invalid Claim Query");
+			throw new ClaimInvalidException(ApplicationConstants.CLAIM_INVALID);
 		}
 		return claimStatusResponse.get();
 	}

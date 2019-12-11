@@ -22,6 +22,18 @@ public class GlobalExceptionHandler {
 		ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
 	}
+	
+	@ExceptionHandler(value = ApproverInvalidException.class)
+	public ResponseEntity<ErrorResponse> handleException(ApproverInvalidException exception) {
+		ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(value = ClaimInvalidException.class)
+	public ResponseEntity<ErrorResponse> handleException(ClaimInvalidException exception) {
+		ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
 
 	
 
