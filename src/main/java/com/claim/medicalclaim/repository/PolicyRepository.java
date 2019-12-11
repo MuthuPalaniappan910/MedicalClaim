@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.claim.medicalclaim.entity.Policy;
 
 @Repository
-public interface PolicyRepository extends JpaRepository<Policy, Integer>{
+public interface PolicyRepository extends JpaRepository<Policy, Integer> {
 
 }

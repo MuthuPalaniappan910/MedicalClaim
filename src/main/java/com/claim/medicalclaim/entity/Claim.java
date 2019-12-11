@@ -43,4 +43,7 @@ public class Claim {
 	private String dischargeSummary;
 	private String ailment;
 	private LocalDate claimRaisedDate;
+
+
 }
+

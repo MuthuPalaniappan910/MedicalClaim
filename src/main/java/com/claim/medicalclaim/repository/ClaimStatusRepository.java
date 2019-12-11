@@ -8,4 +8,6 @@ import com.claim.medicalclaim.entity.ClaimStatus;
 @Repository
 public interface ClaimStatusRepository extends JpaRepository<ClaimStatus,Long>{
 
+
+
 }
