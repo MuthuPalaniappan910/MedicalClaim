@@ -1,6 +1,5 @@
 package com.claim.medicalclaim.service;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
@@ -70,6 +69,7 @@ public class ClaimServiceTest {
 		claim.setClaimId(1L);
 
 		claimStatus = new ClaimStatus();
+		claimStatus.setStatus("pending");
 		claimStatus.setStatus("pending");
 		claimStatus.setClaimStatusID(1L);
 

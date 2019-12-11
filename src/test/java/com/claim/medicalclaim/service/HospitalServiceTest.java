@@ -13,10 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.claim.medicalclaim.constants.ApplicationConstants;
 import com.claim.medicalclaim.entity.Hospital;
 import com.claim.medicalclaim.repository.HospitalRepository;
-import com.claim.medicalclaim.service.HospitalServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HospitalServiceTest {

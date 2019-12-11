@@ -1,10 +1,9 @@
 package com.claim.medicalclaim.controller;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,16 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
 
 import com.claim.medicalclaim.constants.ApplicationConstants;
+import com.claim.medicalclaim.dto.ClaimSearchResponseDto;
 import com.claim.medicalclaim.dto.RaiseClaimRequestDto;
 import com.claim.medicalclaim.dto.RaiseClaimResponseDto;
-import com.claim.medicalclaim.service.ClaimService;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.claim.medicalclaim.dto.ClaimSearchResponseDto;
 import com.claim.medicalclaim.exception.PolicyClaimNotFoundException;
 import com.claim.medicalclaim.service.ClaimService;
 
