@@ -50,19 +50,19 @@ public class ApproverControllerTest {
 	public void before() {
 		approverRequestDto = new ApproverRequestDto();
 		approverRequestDto.setApproverEmail("muthu@gmail.com");
-		approverRequestDto.setApproverPassowrd("muthu123");
+		approverRequestDto.setApproverPassword("muthu123");
 
 		approverRequestDto1 = new ApproverRequestDto();
 		approverRequestDto1.setApproverEmail("muthu4@gmail.com");
-		approverRequestDto1.setApproverPassowrd("muthu123");
+		approverRequestDto1.setApproverPassword("muthu123");
 
 		approverResponseDto = new ApproverResponseDto();
 		approverResponseDto.setStatusCode(ApplicationConstants.SUCCESS_CODE);
-		approverResponseDto.setStatusMessage(ApplicationConstants.SUCCESS_MESSAGE);
+		approverResponseDto.setMessage(ApplicationConstants.SUCCESS_MESSAGE);
 
 		approverResponseDto1 = new ApproverResponseDto();
 		approverResponseDto1.setStatusCode(ApplicationConstants.ERROR_CODE);
-		approverResponseDto1.setStatusMessage(ApplicationConstants.ERROR_MESSAGE);
+		approverResponseDto1.setMessage(ApplicationConstants.ERROR_MESSAGE);
 
 		claimStatus = new ClaimStatus();
 		approver = new Approver();
@@ -75,12 +75,13 @@ public class ApproverControllerTest {
 		claimStatus.setApproverId(approver);
 		claimList.add(claimStatus);
 
+		approverResponseDto1.setMessage(ApplicationConstants.ERROR_MESSAGE);
 	}
 
 	@Test
 	public void testApproverLoginPositive() {
 		Mockito.when(approverService.approverLogin(approverRequestDto.getApproverEmail(),
-				approverRequestDto.getApproverPassowrd())).thenReturn(Optional.of(new Approver()));
+				approverRequestDto.getApproverPassword())).thenReturn(Optional.of(new Approver()));
 		Integer expected = approverController.approverLogin(approverRequestDto).getStatusCodeValue();
 		assertEquals(ApplicationConstants.SUCCESS_CODE, expected);
 	}
@@ -88,7 +89,7 @@ public class ApproverControllerTest {
 	@Test
 	public void testApproverLoginNegative() {
 		Mockito.when(approverService.approverLogin(approverRequestDto1.getApproverEmail(),
-				approverRequestDto1.getApproverPassowrd())).thenReturn(Optional.of(new Approver()));
+				approverRequestDto1.getApproverPassword())).thenReturn(Optional.of(new Approver()));
 		Integer expected = approverController.approverLogin(approverRequestDto).getStatusCodeValue();
 		assertEquals(ApplicationConstants.ERROR_CODE, expected);
 	}

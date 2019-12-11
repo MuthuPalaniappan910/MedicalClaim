@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,10 +35,11 @@ public class Claim {
 	private Policy policyId;
 
 	private String diagnosis;
+	@JsonFormat(pattern = "yyyy-MMM-dd")
 	private LocalDate admissionDate;
+	@JsonFormat(pattern = "yyyy-MMM-dd")
 	private LocalDate dischargeDate;
 	private Double claimAmount;
-
 
 	private String hospitalName;
 
@@ -44,6 +47,4 @@ public class Claim {
 	private String ailment;
 	private LocalDate claimRaisedDate;
 
-
 }
-

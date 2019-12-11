@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApproverRequestDto {
-	private String approverEmail;
-	private String approverPassword;
+public class ClaimActionResponseDto {
+	private String statusMessage;
+	private Integer statusCode;
 }

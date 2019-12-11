@@ -63,13 +63,13 @@ public class ApproverServiceTest {
 		approver.setApproverPassword("muthu123");
 
 		approverRequestDto.setApproverEmail("muthu@gmail.com");
-		approverRequestDto.setApproverPassowrd("muthu123");
+		approverRequestDto.setApproverPassword("muthu123");
 
 		approver1 = new Approver();
 		approver1.setApproverId(2L);
 		ClaimStatus claimStatus = new ClaimStatus();
 		claimStatus.setApproverId(approver1);
-		claimStatus.setClaimStatus("Pending");
+		claimStatus.setStatus("Pending");
 		claimList1 = new ArrayList<>();
 		claimList1.add(claimStatus);
 
@@ -83,14 +83,15 @@ public class ApproverServiceTest {
 		claimListDto.setClaimraisedDate(LocalDate.now());
 		claimListDto.setClaimId(1L);
 		claimListDtoList.add(claimListDto);
+		approverRequestDto.setApproverPassword("muthu123");
 	}
 
 	@Test
 	public void testApproverLoginPositive() {
 		Mockito.when(approverRepository.findByApproverEmailAndApproverPassword(approverRequestDto.getApproverEmail(),
-				approverRequestDto.getApproverPassowrd())).thenReturn(Optional.of(new Approver()));
+				approverRequestDto.getApproverPassword())).thenReturn(Optional.of(new Approver()));
 		Optional<Approver> expected = approverServiceImpl.approverLogin(approverRequestDto.getApproverEmail(),
-				approverRequestDto.getApproverPassowrd());
+				approverRequestDto.getApproverPassword());
 		assertEquals(true, expected.isPresent());
 	}
 
@@ -105,7 +106,7 @@ public class ApproverServiceTest {
 	@Test(expected = ClaimInvalidException.class)
 	public void testClaimInvalid() throws ClaimInvalidException, ApproverInvalidException {
 		Mockito.when(approverRepository.findByApproverId(1L)).thenReturn(Optional.of(approver1));
-		Mockito.when(claimStatusRepository.findByClaimStatusAndApproverId("Approved", approver1))
+		Mockito.when(claimStatusRepository.findByStatusAndApproverId("Approved", approver1))
 				.thenReturn(Optional.of(claimList));
 		List<ClaimStatus> expected = approverServiceImpl.viewClaims(1L);
 		String message = ApplicationConstants.CLAIM_INVALID;
@@ -115,7 +116,7 @@ public class ApproverServiceTest {
 	@Test
 	public void testApproverValid() throws ClaimInvalidException, ApproverInvalidException {
 		Mockito.when(approverRepository.findByApproverId(1L)).thenReturn(Optional.of(approver1));
-		Mockito.when(claimStatusRepository.findByClaimStatusAndApproverId("Pending", approver1))
+		Mockito.when(claimStatusRepository.findByStatusAndApproverId("Pending", approver1))
 				.thenReturn(Optional.of(claimList1));
 		List<ClaimStatus> expected = approverServiceImpl.viewClaims(1L);
 		assertEquals(claimList1.size(), expected.size());

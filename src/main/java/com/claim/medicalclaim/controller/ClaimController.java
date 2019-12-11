@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.claim.medicalclaim.exception.GeneralException;
 import com.claim.medicalclaim.exception.PolicyClaimNotFoundException;
 import com.claim.medicalclaim.service.ClaimService;
 
+@CrossOrigin(allowedHeaders = { "*", "*/" }, origins = { "*", "*/" })
 @RequestMapping("/claims")
 @RestController
 public class ClaimController {
@@ -28,14 +30,11 @@ public class ClaimController {
 	ClaimService claimService;
 
 	@PostMapping
-	ResponseEntity<Optional<RaiseClaimResponseDto>> raiseClaim(@RequestBody RaiseClaimRequestDto raiseClaimRequestDto)
-			throws Exception {
+	public ResponseEntity<Optional<RaiseClaimResponseDto>> raiseClaim(
+			@RequestBody RaiseClaimRequestDto raiseClaimRequestDto) throws GeneralException {
 		Optional<RaiseClaimResponseDto> claimResponse = claimService.raiseClaim(raiseClaimRequestDto);
-		if (!claimResponse.isPresent()) {
-			throw new GeneralException("Unable to raise claim");
-		}
 		claimResponse.get().setStatusCode(ApplicationConstants.RAISE_CLAIM_SUCCESS_CODE);
-		claimResponse.get().setStatusMessage(ApplicationConstants.RAISE_CLAIM_SUCCESS__MESSAGE);
+		claimResponse.get().setStatusMessage(ApplicationConstants.RAISE_CLAIM_SUCCESS_MESSAGE);
 		return new ResponseEntity<>(claimResponse, HttpStatus.OK);
 	}
 	
