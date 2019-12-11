@@ -35,3 +35,4 @@ public class ClaimStatus {
 	private String claimStatus;
 	private String comments;
 }
+

@@ -16,6 +16,12 @@ public class GlobalExceptionHandler {
 		ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
 	}
+	
+	@ExceptionHandler(value = GeneralException.class)
+	public ResponseEntity<ErrorResponse> handleException(GeneralException exception) {
+		ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_ACCEPTABLE);
+	}
 
 	
 

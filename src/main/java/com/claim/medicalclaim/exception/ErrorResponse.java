@@ -1,8 +1,5 @@
 package com.claim.medicalclaim.exception;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ErrorResponse {
 	String message;
 
@@ -22,4 +19,5 @@ public class ErrorResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 }

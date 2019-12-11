@@ -12,5 +12,4 @@ import com.claim.medicalclaim.entity.ClaimStatus;
 public interface ClaimStatusRepository extends JpaRepository<ClaimStatus, Long>{
 
 	Optional<ClaimStatus> findByClaimId(Claim claimId);
-
 }
