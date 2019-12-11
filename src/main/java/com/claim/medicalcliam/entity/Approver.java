@@ -1,4 +1,4 @@
-package com.claim.medicalcliam.entity;
+package com.claim.medicalclaim.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,4 +24,5 @@ public class Approver {
 	private String approverPassword;
 	private String approverEmail;
 	private String approverRole;
+	private String ailment;
 }
