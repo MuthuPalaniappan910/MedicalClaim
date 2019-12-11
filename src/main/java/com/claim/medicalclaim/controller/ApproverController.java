@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.claim.medicalclaim.constants.ApplicationConstants;
 import com.claim.medicalclaim.dto.ApproverRequestDto;
 import com.claim.medicalclaim.dto.ApproverResponseDto;
+import com.claim.medicalclaim.dto.ClaimActionRequestDto;
+import com.claim.medicalclaim.dto.ClaimActionResponseDto;
 import com.claim.medicalclaim.entity.Approver;
+import com.claim.medicalclaim.exception.GeneralException;
 import com.claim.medicalclaim.service.ApproverService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RequestMapping("/approvers/claims")
+@RequestMapping("/approvers")
 @Slf4j
 @RestController
 public class ApproverController {
@@ -40,5 +44,16 @@ public class ApproverController {
 		approverResponseDto.setStatusCode(ApplicationConstants.ERROR_CODE);
 		approverResponseDto.setStatusMessage(ApplicationConstants.ERROR_MESSAGE);
 		return new ResponseEntity<>(approverResponseDto, HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/claims")
+	public ResponseEntity<Optional<ClaimActionResponseDto>> claimAction(@RequestBody ClaimActionRequestDto claimActionRequestDto) throws GeneralException {
+		Optional<ClaimActionResponseDto> claimActionResponseDto = approverService.claimAction(claimActionRequestDto);
+		if (!claimActionResponseDto.isPresent()) {		
+			throw new GeneralException("Unable to perform action");
+		}
+		claimActionResponseDto.get().setStatusCode(ApplicationConstants.SUCCESS_CODE);
+		claimActionResponseDto.get().setStatusMessage(ApplicationConstants.SUCCESS);
+		return new ResponseEntity<>(claimActionResponseDto, HttpStatus.OK);
 	}
 }
